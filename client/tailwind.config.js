@@ -18,7 +18,7 @@ module.exports = {
       coralPink: "#FF9271",
       coralPinkLight: "#fdbfa6",
       mustardYellow: "#F9C74F ",
-      turquoise: "#83dfe3 ",
+      turquoise: "#68e0f8 ",
       white: "#ffffff",
       lightGray: "#F0F0F0 ",
       charcoal: "#333333",

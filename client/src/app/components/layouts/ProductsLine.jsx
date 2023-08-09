@@ -83,7 +83,7 @@ const ProductsLine = ({ lineID, data, bottomLine }) => {
                         title={gift.title}
                         image={gift.images[0]}
                         price={gift.price}
-                        link={gift.title}
+                        link={gift.id}
                       />
                     </div>
                   ))

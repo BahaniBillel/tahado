@@ -7,6 +7,7 @@ import {
   RiMenuLine,
 } from "react-icons/ri";
 import { IoIosBasket } from "react-icons/io";
+import Link from "next/link";
 
 function Navigation() {
   return (
@@ -28,9 +29,11 @@ function Navigation() {
         </ul>
       </ul>
       <div className="col-span-1 ">
-        <p className="text-2xl font-sans font-extrabold tracking-wide">
-          TAHADO
-        </p>
+        <Link href="/">
+          <p className="text-2xl font-sans font-extrabold tracking-wide">
+            TAHADO
+          </p>
+        </Link>
       </div>
 
       <div className=" hidden col-span-1  md:flex flex-row items-center place-self-end">

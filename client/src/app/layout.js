@@ -1,3 +1,4 @@
+"use client";
 import {
   El_Messiri,
   Noto_Kufi_Arabic,
@@ -18,12 +19,15 @@ export const metadata = {
   description: "A gift ecommerce",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children, params }) {
+  const hideHeaderFooter = params.pathname === "/listing/12";
+
   return (
     <html lang="ar">
       <body className={ElMessiri.className}>
         <Navigation />
-        <MiddleHeader />
+        {!hideHeaderFooter && <MiddleHeader />}
+
         {children}
       </body>
     </html>

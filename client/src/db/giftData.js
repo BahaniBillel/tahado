@@ -120,7 +120,7 @@ const GiftData = [
     mainImage: Brume,
     gifts: [
       {
-        id: 11,
+        id: 21,
         title: "رذاذ معطر الحسم و الشعر فكتوريا",
         images: [GiftBox, backpack, Brume],
         price: 42500,
@@ -146,7 +146,7 @@ const GiftData = [
         for: [" هدية الاصدقاء", "هدية تخرج", "هدية نسائية"],
       },
       {
-        id: 12,
+        id: 22,
         title: "رذاذ معطر الحسم و الشعر فكتوريا",
         images: [backpack, Brume],
         price: 42500,
@@ -172,7 +172,7 @@ const GiftData = [
         for: [" هدية الاصدقاء", "هدية تخرج", "هدية نسائية"],
       },
       {
-        id: 13,
+        id: 23,
         title: "رذاذ معطر الحسم و الشعر فكتوريا",
         images: [backpack, Brume],
         price: 42500,
@@ -198,7 +198,7 @@ const GiftData = [
         for: [" هدية الاصدقاء", "هدية تخرج", "هدية نسائية"],
       },
       {
-        id: 14,
+        id: 24,
         title: "رذاذ معطر الحسم و الشعر فكتوريا",
         images: [backpack, Brume],
         price: 44500,
