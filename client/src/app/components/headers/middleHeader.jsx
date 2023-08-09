@@ -20,7 +20,7 @@ function MiddleHeader() {
           <div key={link.name} className="navOption group">
             <Link href={`/gifts${link.page}`}>
               <div className="overflow-hidden rounded-full w-36 h-36 relative">
-                <Image src={link.image} alt="/" />
+                <Image src={link.image} alt={link.name} />
               </div>
               <h1 className="text-gray-800 text-sm group-hover:underline my-2 cursor-pointer">
                 {link.name}
