@@ -15,9 +15,10 @@ module.exports = {
     },
     colors: {
       transparent: "transparent",
-      coralPink: "#FF6B6B",
+      coralPink: "#FF9271",
+      coralPinkLight: "#fdbfa6",
       mustardYellow: "#F9C74F ",
-      turquoise: "#70C1B3 ",
+      turquoise: "#83dfe3 ",
       white: "#ffffff",
       lightGray: "#F0F0F0 ",
       charcoal: "#333333",

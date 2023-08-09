@@ -39,7 +39,7 @@ function ProductLy01({
   //   };
 
   return (
-    <div className="w-80">
+    <div className="w-80 group">
       <div
         className={` ${"w-80" || width}  ${
           "h-80" || length

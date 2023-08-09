@@ -7,7 +7,7 @@ import "keen-slider/keen-slider.min.css";
 import ProductLy01 from "../productsLayouts/ProdcutLy01";
 // import Modal from "../usables/Modal";
 
-const ProductsLine = ({ haveLabel, data, bottomLine }) => {
+const ProductsLine = ({ lineID, data, bottomLine }) => {
   const [loaded, setLoaded] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [sliderRef, instanceRef] = useKeenSlider({
@@ -50,42 +50,47 @@ const ProductsLine = ({ haveLabel, data, bottomLine }) => {
     document.body.style.overflow = "unset";
   };
 
-  const [{ occasion }] = data;
+  const [{ occasion, id }] = data;
+  // Find the object with id === 1 and get its occasion
+  const occasionForId1 = data.find(
+    (category) => category.id === lineID
+  )?.occasion;
   return (
     <div className=" md:px-32 mt-5 ">
       <div
         className={`navigation-wrapper   ${
-          bottomLine ? "border-b" : null
+          bottomLine ? "border-b border-charcoal/20" : null
         } py-5`}
       >
         <div>
           <div className="">
             <div class="inline-flex items-center justify-center w-full">
               <hr class="w-full h-px  my-8 bg-charcoal/20 border-0 dark:bg-gray-700" />
-              <span class="absolute px-3  text-charcoal text-2xl -translate-x-1/2 bg-white left-1/2 dark:text-charcoal dark:bg-gray-900">
-                {occasion}
+              <span
+                class="absolute px-3  text-charcoal text-2xl -translate-x-1/2
+               bg-white left-1/2 dark:text-charcoal dark:bg-gray-900 whitespace-pre"
+              >
+                {occasionForId1}
               </span>
             </div>
             <div ref={sliderRef} className="keen-slider">
-              {data.map((category) =>
-                category.gifts.map((gift) => (
-                  <div className="keen-slider__slide py-5 " key={gift.id}>
-                    <ProductLy01
-                      title={gift.title}
-                      image={gift.images[0]}
-                      price={gift.price}
-                    />
-                  </div>
-                ))
-              )}
+              {data
+                .filter((category) => category.id === lineID)
+                .map((category) =>
+                  category.gifts.map((gift) => (
+                    <div className="keen-slider__slide py-5 " key={gift.id}>
+                      <ProductLy01
+                        title={gift.title}
+                        image={gift.images[0]}
+                        price={gift.price}
+                        link={gift.title}
+                      />
+                    </div>
+                  ))
+                )}
             </div>
             <div className=" w-full flex flex-row items-center justify-center">
-              <p
-                className="whitespace-pre w-36 text-charcoal  bg-turquoise text-center  px-2 py-1
-               rounded-sm hover:scale-95 transition-all ease-in-out duration-200 cursor-pointer "
-              >
-                عرض كل الهدايا
-              </p>
+              <p className=" button ">عرض كل {occasionForId1}</p>
             </div>
           </div>
         </div>

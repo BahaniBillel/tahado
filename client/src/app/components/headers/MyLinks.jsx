@@ -1,4 +1,4 @@
-import bioplex from "../../../public/images/Protein-Bioplex.jpg";
+import bioplex from "../../../../public/images/Protein-Bioplex.jpg";
 export const links = [
   {
     name: "هدايا الصداقة",
