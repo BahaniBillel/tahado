@@ -1,3 +1,4 @@
+"use client";
 import {
   El_Messiri,
   Noto_Kufi_Arabic,
@@ -7,6 +8,7 @@ import {
 import "./globals.css";
 import Navigation from "./components/headers/navigation";
 import MiddleHeader from "./components/headers/middleHeader";
+import { useRouter, usePathname } from "next/navigation";
 
 const ElMessiri = El_Messiri({
   weight: "400",
@@ -19,11 +21,17 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const isListingIncluded = pathname.includes("/listing");
+  console.log(pathname);
+  console.log(isListingIncluded);
   return (
     <html lang="ar">
       <body className={ElMessiri.className}>
         <Navigation />
-        <MiddleHeader />
+        {isListingIncluded ? null : <MiddleHeader />}
 
         {children}
       </body>
