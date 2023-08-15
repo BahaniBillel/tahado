@@ -53,7 +53,7 @@ function ProductLy01({
             {feature}
           </span>
         ) : null}
-        <Link href={`/listing/${link}`}>
+        <Link href={`/gift/${link}`}>
           <div className="h-full overflow-hidden">
             <Image src={image} alt={title} fill={fill} />
           </div>

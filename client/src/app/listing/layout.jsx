@@ -1,4 +1,5 @@
 import React from "react";
+import { Noto_Kufi_Arabic, Noto_Naskh_Arabic } from "next/font/google";
 
 export const metadata = {
   title: "Listing",
@@ -6,8 +7,12 @@ export const metadata = {
   keywords: "",
 };
 
+// const notoKufiArabic = Noto_Kufi_Arabic({
+//   weight: ["200", "700"],
+//   subsets: ["arabic"],
+// });
 function ListingLayout() {
-  return <div>This is the listing layout</div>;
+  return <div className={""}></div>;
 }
 
 export default ListingLayout;

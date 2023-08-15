@@ -10,7 +10,7 @@ import Navigation from "./components/headers/navigation";
 import MiddleHeader from "./components/headers/middleHeader";
 import { useRouter, usePathname } from "next/navigation";
 
-const ElMessiri = El_Messiri({
+const ElMessiri = Noto_Naskh_Arabic({
   weight: "400",
   subsets: ["arabic"],
 });
@@ -24,14 +24,14 @@ export default function RootLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const isListingIncluded = pathname.includes("/listing");
+  const isHomePage = pathname === "/";
   console.log(pathname);
-  console.log(isListingIncluded);
+  console.log(isHomePage);
   return (
     <html lang="ar">
-      <body className={ElMessiri.className}>
+      <body className={`${ElMessiri.className} `}>
         <Navigation />
-        {isListingIncluded ? null : <MiddleHeader />}
+        {!isHomePage ? null : <MiddleHeader />}
 
         {children}
       </body>
