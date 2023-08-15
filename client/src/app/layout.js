@@ -1,3 +1,4 @@
+"use client";
 import {
   El_Messiri,
   Noto_Kufi_Arabic,
