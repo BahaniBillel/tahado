@@ -2,7 +2,6 @@ import React from "react";
 import GiftImageSlider from "../../utils/GiftImageSlider";
 import ThumbnailsKeenSlider from "../../utils/ThumbnailsKeenSlider";
 import Gift from "../../../../public/images/festive-gift.jpg";
-import ReactStarsComp from "../../components/ReactStars";
 import MenGift from "../../../../public/images/man-gift.jpg";
 import { MdLocalOffer } from "react-icons/md";
 import MyDisclosure from "../../utils/Disclosure";
@@ -13,11 +12,17 @@ import {
   BiLogoYoutube,
 } from "react-icons/bi";
 
+// Components
+import SimilarCategories from "../../components/SimilarCategories";
+import NewsletterRibbon from "../../components/NewsletterRibbon";
+import ReactStarsComp from "../../components/ReactStars";
+import BottomNavigation from "../../components/BottomNavigation";
+
 const images = [Gift, MenGift, Gift, Gift, Gift];
 
 function GiftDetail() {
   return (
-    <div className="w-full flex flex-col md:flex-col justify-center md:px-28 pt-0 md:pt-10 space-y-10 md:space-y-0 pb-24">
+    <div className="w-full flex flex-col md:flex-col  md:px-28 pt-0 md:pt-10 space-y-10 md:space-y-10 pb-24">
       <section className="h-50vh   flex flex-col md:flex-row ">
         {/* Left side */}
         <div className=" w-full md:w-3/5 order-1 md:order-2">
@@ -125,6 +130,7 @@ function GiftDetail() {
           </div>
         </div>
       </section>
+
       <section className="  w-full flex flex-col   md:flex-row md:space-x-10 mt-10 pt-16 px-4">
         <div className="md:w-1/2 order-2 md:order-1  ">
           <div className="">
@@ -161,9 +167,20 @@ function GiftDetail() {
           <MyDisclosure />
         </div>
       </section>
+
       <section className="h-80 py-1 bg-coralPinkLight/50 flex flex-col items-center justify-start px-4 mt-10 ">
         <p className="smalltitle">منتوجات لنفس الحرفي</p>
       </section>
+
+      <section className="h-80 py-1 bg-coralPinkLight/50 flex flex-col items-center justify-start px-4 mt-10 ">
+        <p className="smalltitle"> ربما تعجبك هاته الهدايا أيضا </p>
+      </section>
+
+      <section>
+        <SimilarCategories />
+        <NewsletterRibbon />
+      </section>
+      <BottomNavigation />
     </div>
   );
 }

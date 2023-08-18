@@ -18,7 +18,7 @@ function MiddleHeader() {
       <div className="row-span-1 flex flex-row w-full overflow-x-auto justify-center space-x-16  py-5">
         {links.map((link, i) => (
           <div key={link.id} className="navOption group">
-            <Link href={`/gifts${link.page}`}>
+            <Link href={`/categories${link.page}`}>
               <div className="overflow-hidden rounded-full w-36 h-36 relative">
                 <Image src={link.image} alt={link.name} />
               </div>
