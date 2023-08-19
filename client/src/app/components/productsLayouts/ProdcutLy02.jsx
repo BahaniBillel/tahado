@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import Link from "next/link";
-import DefaultImage from "../../../../public/images/defaultGiftImage.jpg";
+import DefaultImage from "../../../../public/images/alicia.jpg";
 // import { useDispatch } from "react-redux";
 import { HeartIcon } from "@heroicons/react/24/solid";
 // import { incrementLikes, decrementLikes } from "../../redux/slices/basketSlice";
@@ -40,7 +40,7 @@ function ProductLy02({
   //   };
 
   return (
-    <div className="w-36 md:w-72 group">
+    <div className="w-36 md:w-72 group ">
       <div
         className={` ${"w-36 md:w-72" || width}  ${
           " h-44 md:h-72" || length
@@ -56,7 +56,7 @@ function ProductLy02({
         ) : null}
         <Link href={`/gift/${link}`}>
           <div className="h-full overflow-hidden">
-            <Image src={image || DefaultImage} alt={title} fill={fill} />
+            <Image src={image || DefaultImage} alt={title} fill={fill}  sizes="(max*width:768) 100 vw,700px"/>
           </div>
         </Link>
 
@@ -70,14 +70,17 @@ function ProductLy02({
           </button>
         </div>
       </div>
-      <div className="flex flex-row flex-nowrap text-sm space-y-3 items-center ">
-        <p>
-          {" "}
-          <span>دج</span>
-          <span>{price}</span>
-        </p>
-        <div className="flex-grow"></div>
-        <p className="whitespace-pre">{title}</p>
+      <div className="flex flex-col   space-y-3 items-end text-right  ">
+        {/* first line  */}
+        <div className="flex flex-col md:flex-row-reverse  md:justify-center w-full pt-2 text-right">
+        <div className="text-sm font-light ">{title}</div>
+        <div className=" flex flex-grow"></div>
+        <div className="font-bold text-sm pr-2 flex flex-row justify-end md:justify-center whitespace-pre ">
+          <p className="pr-2 ">دج</p>
+          <p>{price}</p>
+        </div>
+        {/* second line */}
+        </div>
       </div>
     </div>
   );

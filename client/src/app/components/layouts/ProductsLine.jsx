@@ -82,7 +82,7 @@ const ProductsLine = ({ lineID, data, bottomLine }) => {
                       <ProductLy01
                         title={gift.title}
                         image={gift.images[0]}
-                        price={gift.price}
+                        // price={gift.price}
                         link={gift.id}
                       />
                     </div>

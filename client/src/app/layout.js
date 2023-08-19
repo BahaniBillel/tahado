@@ -15,7 +15,7 @@ const ElMessiri = Noto_Naskh_Arabic({
   subsets: ["arabic"],
 });
 
-export const metadata = {
+const metadata = {
   title: "Tahado",
   description: "A gift ecommerce",
 };

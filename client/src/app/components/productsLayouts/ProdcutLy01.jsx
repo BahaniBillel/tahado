@@ -72,7 +72,7 @@ function ProductLy01({
       <div className="flex flex-row flex-nowrap text-sm space-y-3 items-center ">
         <p>
           {" "}
-          <span>دج</span>
+          {/* <span>دج</span> */}
           <span>{price}</span>
         </p>
         <div className="flex-grow"></div>
