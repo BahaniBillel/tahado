@@ -55,7 +55,7 @@ function ProductLy01({
         ) : null}
         <Link href={`/gift/${link}`}>
           <div className="h-full overflow-hidden">
-            <Image src={image} alt={title} fill={fill} />
+            <Image src={image} alt="alicia" fill={fill} />
           </div>
         </Link>
 

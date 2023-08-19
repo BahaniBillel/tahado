@@ -144,7 +144,7 @@ function GiftDetail() {
           </div>
           <div className="text-right">
             <h3 className="smalltitle"> الأبعاد</h3>
-            <p>6" الطول x 2" العرض x 9.4" الإرتفاع</p>
+            <p>6 الطول x 2 العرض x 9.4 الإرتفاع</p>
           </div>
           <div className="text-right">
             <h3 className="smalltitle"> ملاحضات</h3>
