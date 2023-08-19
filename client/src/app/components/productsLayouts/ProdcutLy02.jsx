@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import Link from "next/link";
-import DefaultImage from "../../../../public/images/alicia.jpg";
+import DefaultImage from "../../../../public/images/defaultGiftImage.jpg";
 // import { useDispatch } from "react-redux";
 import { HeartIcon } from "@heroicons/react/24/solid";
 // import { incrementLikes, decrementLikes } from "../../redux/slices/basketSlice";

@@ -55,7 +55,7 @@ function ProductLy01({
         ) : null}
         <Link href={`/gift/${link}`}>
           <div className="h-full overflow-hidden">
-            <Image src={image} alt="alicia" fill={fill} />
+            <Image src={image} alt={title} fill={fill} />
           </div>
         </Link>
 
@@ -72,7 +72,7 @@ function ProductLy01({
       <div className="flex flex-row flex-nowrap text-sm space-y-3 items-center ">
         <p>
           {" "}
-          {/* <span>دج</span> */}
+          <span>دج</span>
           <span>{price}</span>
         </p>
         <div className="flex-grow"></div>
