@@ -1,11 +1,11 @@
 import React from "react";
 import Image from "next/image";
-import Gift from "../../../../public/images/wedding-gift.jpg";
+import Gift from "../../../../public/images/wedding-gift2.jpg";
 
-function Layout01() {
+function SectionLayout02() {
   return (
-    <div className=" flex flex-col md:grid grid-cols-6  md:h-screen md:py-10 bg-coralPinkLight gap-4 ">
-      <div className=" col-span-2 flex flex-col justify-center items-end text-right pr-5 order-2  ">
+    <div className=" flex flex-row justify-center md:h-screen md:py-10 bg-turquoise gap-4 ">
+      <div className="flex flex-col justify-center items-end text-right pr-5 order-2  ">
         <p className="text-3xl font-semibold ">وعسى حياتك كلها سعيدة</p>
 
         <p className="text-sm font-light py-4">
@@ -13,14 +13,14 @@ function Layout01() {
           طول الزمان وعرض المكان ليحققا كل الأحلام.
         </p>
 
-        <p className="button">اكتشف الهدايا</p>
+        <p className="button bg-white">اكتشف الهدايا</p>
       </div>
 
-      <div className=" col-span-4 overflow-hidden order-1">
+      <div className="  overflow-hidden order-1 ">
         <Image src={Gift} />
       </div>
     </div>
   );
 }
 
-export default Layout01;
+export default SectionLayout02;
