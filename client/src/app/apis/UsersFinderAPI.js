@@ -1,5 +1,3 @@
-import React from "react";
-
 export default async function UsersFinderAPI() {
-  return fetch("api/v1/products");
+  return await fetch("api/v1/products");
 }

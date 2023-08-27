@@ -17,10 +17,21 @@ import SimilarCategories from "../../components/SimilarCategories";
 import NewsletterRibbon from "../../components/NewsletterRibbon";
 import ReactStarsComp from "../../components/ReactStars";
 import BottomNavigation from "../../components/BottomNavigation";
+import UsersFinderAPI from "../../apis/UsersFinderAPI";
+import axios from "axios";
 
 const images = [Gift, MenGift, Gift, Gift, Gift];
 
-function GiftDetail() {
+async function FetchGifts() {
+  const response = await axios.get("http://localhost:3001/api/v1/products");
+  const gifts = await response.data.data.users;
+  console.log(gifts);
+  return gifts;
+}
+
+async function GiftDetail() {
+  const gifts = await FetchGifts();
+  console.log(gifts[0].name);
   return (
     <div className="w-full flex flex-col md:flex-col  md:px-28 pt-0 md:pt-10 space-y-10 md:space-y-10 pb-24">
       <section className="h-50vh   flex flex-col md:flex-row ">

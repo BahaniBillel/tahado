@@ -25,8 +25,8 @@ export default function RootLayout({ children }) {
   const pathname = usePathname();
 
   const isHomePage = pathname === "/";
-  console.log(pathname);
-  console.log(isHomePage);
+  // console.log(pathname);
+  // console.log(isHomePage);
   return (
     <html lang="ar">
       <body className={`${ElMessiri.className} `}>
