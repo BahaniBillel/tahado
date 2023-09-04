@@ -9,8 +9,9 @@ const GiftData = [
     mainImage: Brume,
     gifts: [
       {
-        id: 11,
+        id: 3,
         title: "رذاذ معطر الحسم و الشعر فكتوريا",
+        url: "رذاذ-معطر-الحسم-و-الشعر-فكتوريا-1",
         images: [GiftBox, backpack, Brume],
         price: 2500,
         weigh: 0.56,
@@ -37,6 +38,7 @@ const GiftData = [
       {
         id: 12,
         title: "رذاذ معطر الحسم و الشعر فكتوريا",
+        url: "رذاذ-معطر-الحسم-و-الشعر-فكتوريا",
         images: [backpack, Brume],
         price: 2500,
         weigh: 0.5,
@@ -63,6 +65,7 @@ const GiftData = [
       {
         id: 13,
         title: "رذاذ معطر الحسم و الشعر فكتوريا",
+        url: "رذاذ-معطر-الحسم-و-الشعر-فكتوريا",
         images: [backpack, Brume],
         price: 2500,
         weigh: 0.5,
@@ -89,6 +92,7 @@ const GiftData = [
       {
         id: 14,
         title: "رذاذ معطر الحسم و الشعر فكتوريا",
+        url: "رذاذ-معطر-الحسم-و-الشعر-فكتوريا",
         images: [backpack, Brume],
         price: 4500,
         weigh: 0.5,
@@ -122,6 +126,7 @@ const GiftData = [
       {
         id: 21,
         title: "رذاذ معطر الحسم و الشعر فكتوريا",
+        url: "رذاذ-معطر-الحسم-و-الشعر-فكتوريا",
         images: [GiftBox, backpack, Brume],
         price: 42500,
         weigh: 0.56,
@@ -148,6 +153,7 @@ const GiftData = [
       {
         id: 22,
         title: "رذاذ معطر الحسم و الشعر فكتوريا",
+        url: "رذاذ-معطر-الحسم-و-الشعر-فكتوريا",
         images: [backpack, Brume],
         price: 42500,
         weigh: 0.5,
@@ -174,6 +180,7 @@ const GiftData = [
       {
         id: 23,
         title: "رذاذ معطر الحسم و الشعر فكتوريا",
+        url: "رذاذ-معطر-الحسم-و-الشعر-فكتوريا",
         images: [backpack, Brume],
         price: 42500,
         weigh: 0.5,

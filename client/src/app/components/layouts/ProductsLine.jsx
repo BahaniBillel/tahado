@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-
+import DefaultImage from "../../../../public/images/defaultGiftImage.jpg";
 // Components
 import ProductLy01 from "../productsLayouts/ProdcutLy01";
 // import Modal from "../usables/Modal";
@@ -34,27 +34,12 @@ const ProductsLine = ({ lineID, data, bottomLine }) => {
     },
   });
 
-  // Hnadle Modal
-  const [showModal, setShowModal] = useState(false);
-  const ShowModel = () => {
-    setShowModal(true);
-    // Disables Background Scrolling whilst the SideDrawer/Modal is open
-    if (typeof window != "undefined" && window.document) {
-      document.body.style.overflow = "hidden";
-    }
-  };
-
-  const CloseModalHandler = () => {
-    setShowModal(false);
-    // Unsets Background Scrolling to use when SideDrawer/Modal is closed
-    document.body.style.overflow = "unset";
-  };
-
   const [{ occasion, id }] = data;
   // Find the object with id === 1 and get its occasion
   const occasionForId1 = data.find(
     (category) => category.id === lineID
   )?.occasion;
+
   return (
     <div className=" md:px-32 mt-5 ">
       <div
@@ -74,27 +59,23 @@ const ProductsLine = ({ lineID, data, bottomLine }) => {
               </span>
             </div>
             <div ref={sliderRef} className="keen-slider">
-              {data
-                .filter((category) => category.id === lineID)
-                .map((category) =>
-                  category.gifts.map((gift) => (
-                    <div className="keen-slider__slide py-5 " key={gift.id}>
-                      <ProductLy01
-                        title={gift.title}
-                        image={gift.images[0]}
-                        price={gift.price}
-                        link={gift.id}
-                      />
-                    </div>
-                  ))
-                )}
+              {data.map((gift) => (
+                <div className="keen-slider__slide py-5 " key={gift.product_id}>
+                  <ProductLy01
+                    giftName={gift.giftname}
+                    mainImage={DefaultImage}
+                    price={gift.price}
+                    link={gift.url}
+                  />
+                </div>
+              ))}
             </div>
             <div className=" w-full flex flex-row items-center justify-center">
               <p className=" button ">عرض كل {occasionForId1}</p>
             </div>
           </div>
         </div>
-        {loaded && instanceRef.current && (
+        {/* {loaded && instanceRef.current && (
           <>
             <Arrow
               left
@@ -114,16 +95,8 @@ const ProductsLine = ({ lineID, data, bottomLine }) => {
               }
             />
           </>
-        )}
+        )} */}
       </div>
-      {/* {showModal ? (
-        <Modal
-          CloseModal={CloseModalHandler}
-          picture={ProductImage}
-          brandname="Comas"
-          title="Bodyskin crema to soften the touch."
-        />
-      ) : null} */}
     </div>
   );
 };

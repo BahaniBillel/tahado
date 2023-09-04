@@ -7,8 +7,8 @@ import { HeartIcon } from "@heroicons/react/24/solid";
 // import { incrementLikes, decrementLikes } from "../../redux/slices/basketSlice";
 
 function ProductLy01({
-  image,
-  title,
+  mainImage,
+  giftName,
   price,
   feature,
   featureColor,
@@ -55,7 +55,13 @@ function ProductLy01({
         ) : null}
         <Link href={`/gift/${link}`}>
           <div className="h-full overflow-hidden">
-            <Image src={image} alt={title} fill={fill} />
+            <Image
+              src={mainImage}
+              alt={giftName}
+              fill={fill}
+              width={300}
+              height={300}
+            />
           </div>
         </Link>
 
@@ -76,7 +82,7 @@ function ProductLy01({
           <span>{price}</span>
         </p>
         <div className="flex-grow"></div>
-        <p className="whitespace-pre">{title}</p>
+        <p className="whitespace-pre">{giftName}</p>
       </div>
     </div>
   );

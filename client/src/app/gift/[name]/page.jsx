@@ -29,9 +29,17 @@ async function FetchGifts() {
   return gifts;
 }
 
-async function GiftDetail() {
+async function GiftDetail({ params }) {
   const gifts = await FetchGifts();
-  console.log(gifts[0].name);
+  const pageUrl = params.name;
+  const matchingProduct = gifts.find((gift) => gift.url === pageUrl);
+
+  if (!matchingProduct) {
+    // Handle the case where no matching product is found
+    return <div>Product not found xx</div>;
+  }
+  console.log(gifts[0].url, pageUrl);
+
   return (
     <div className="w-full flex flex-col md:flex-col  md:px-28 pt-0 md:pt-10 space-y-10 md:space-y-10 pb-24">
       <section className="h-50vh   flex flex-col md:flex-row ">
@@ -41,13 +49,10 @@ async function GiftDetail() {
         </div>
         {/* Right side */}
         <div className=" w-full md:w-2/5 text-right px-5 pt-5 md:px-10 flex flex-col flex-nowrap space-y-4 items-end order-2 md:order-1">
-          <h2 className="text-2xl md:text-3xl font">هدية ميلاد - زهرة أغسطس</h2>
-          <p className="para">
-            ما الذي يجعل الأغنية أغنيتك المفضلة؟ هل سمعته معًا في حفلة موسيقية؟
-            هل كان يلعب في تاريخك الأول؟ أم أنه الشخص الذي لا يسعك إلا الرقص
-            عليه حتى بعد كل هذه السنوات؟ مهما كان الأمر (بدون أحكام) ، فإنه
-            يجعلكما على حد سواء في كل مرة
-          </p>
+          <h2 className="text-2xl md:text-3xl font">
+            {matchingProduct.product_name}
+          </h2>
+          <p className="para">{matchingProduct.description}</p>
           <div className=" border-y border-y-charcoal/20 py-2 bg-lightGray w-full flex flex-row items-center justify-end">
             <ReactStarsComp />
           </div>

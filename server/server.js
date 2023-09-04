@@ -12,7 +12,7 @@ app.use(express.json());
 app.get("/api/v1/products", async (req, res) => {
   console.log(req.body);
   try {
-    const result = await db.query("select * from products");
+    const result = await db.query("select * from products ");
     console.log(result.rows);
     res.status(200).json({
       status: "success",
