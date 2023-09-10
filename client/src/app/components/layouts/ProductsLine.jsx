@@ -6,8 +6,18 @@ import DefaultImage from "../../../../public/images/defaultGiftImage.jpg";
 // Components
 import ProductLy01 from "../productsLayouts/ProdcutLy01";
 // import Modal from "../usables/Modal";
+import {nextAppRequest,NextApiResponse} from "next"
+
+import useSWR from 'swr';
+const fetcher = url => fetch(url).then(res => res.json());
+
+
 
 const ProductsLine = ({ lineID, data, bottomLine }) => {
+  const { donnees, error } = useSWR('/api/getImages', fetcher);
+  if (error) return <div>Failed to load</div>;
+  if (!donnees) return <div>Loading...</div>;
+  
   const [loaded, setLoaded] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [sliderRef, instanceRef] = useKeenSlider({
@@ -34,11 +44,9 @@ const ProductsLine = ({ lineID, data, bottomLine }) => {
     },
   });
 
-  const [{ occasion, id }] = data;
+
   // Find the object with id === 1 and get its occasion
-  const occasionForId1 = data.find(
-    (category) => category.id === lineID
-  )?.occasion;
+  const occasionForId1 = ""
 
   return (
     <div className=" md:px-32 mt-5 ">

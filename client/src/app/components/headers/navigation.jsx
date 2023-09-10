@@ -8,6 +8,8 @@ import {
 } from "react-icons/ri";
 import { IoIosBasket } from "react-icons/io";
 import Link from "next/link";
+import Logo from "../../../../public/images/logo-blue.png";
+import Image from "next/image";
 
 function Navigation() {
   return (
@@ -30,9 +32,10 @@ function Navigation() {
       </ul>
       <div className="col-span-1 ">
         <Link href="/">
-          <p className="text-2xl font-sans font-extrabold tracking-wide">
+          {/* <p className="text-2xl font-sans font-extrabold tracking-wide">
             TAHADO
-          </p>
+          </p> */}
+          <Image src={Logo} height={100}/>
         </Link>
       </div>
 
