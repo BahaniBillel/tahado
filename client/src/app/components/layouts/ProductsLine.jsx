@@ -22,8 +22,6 @@ const ProductsLine = ({ lineID, data, bottomLine }) => {
   });
 
   const getImages = async () => {
-    console.log("Inside getImages");
-
     const params = {
       Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME,
       Prefix: "gifts_photos/",
