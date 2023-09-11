@@ -1,23 +1,80 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import DefaultImage from "../../../../public/images/defaultGiftImage.jpg";
+import Image from "next/image";
 // Components
 import ProductLy01 from "../productsLayouts/ProdcutLy01";
-// import Modal from "../usables/Modal";
-import {nextAppRequest,NextApiResponse} from "next"
 
-import useSWR from 'swr';
-const fetcher = url => fetch(url).then(res => res.json());
-
-
+import { S3Client, ListObjectsCommand } from "@aws-sdk/client-s3";
 
 const ProductsLine = ({ lineID, data, bottomLine }) => {
-  const { donnees, error } = useSWR('/api/getImages', fetcher);
-  if (error) return <div>Failed to load</div>;
-  if (!donnees) return <div>Loading...</div>;
-  
+  const [images, setImages] = useState([]);
+  const [giftImageMap, setGiftImageMap] = useState({}); // New state to map gift_ids to their images
+
+  const s3Client = new S3Client({
+    region: process.env.NEXT_PUBLIC_REGION,
+    credentials: {
+      accessKeyId: process.env.NEXT_PUBLIC_ACCESS_KEY_ID,
+      secretAccessKey: process.env.NEXT_PUBLIC_SECRET_ACCESS_KEY,
+    },
+  });
+
+  const getImages = async () => {
+    console.log("Inside getImages");
+
+    const params = {
+      Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME,
+      Prefix: "gifts_photos/",
+    };
+
+    console.log("Sending ListObjectsCommand with params:", params);
+
+    const command = new ListObjectsCommand(params);
+    const datax = await s3Client.send(command);
+
+    console.log("Data from S3: ", datax);
+
+    if (datax && datax.Contents) {
+      const imageObjects = datax.Contents;
+
+      let tempGiftImageMap = {};
+
+      data.forEach((gift) => {
+        const { gift_id } = gift;
+
+        // New logic to map images to gifts by gift_id
+        const giftImages = imageObjects.filter(
+          (img) =>
+            img.Key.startsWith(`gifts_photos/gift_${gift_id}/`) &&
+            !img.Key.endsWith("/") &&
+            (img.Key.toLowerCase().endsWith(".jpg") ||
+              img.Key.toLowerCase().endsWith(".png")) // New condition
+        );
+
+        tempGiftImageMap[gift_id] = giftImages.map(
+          (img) =>
+            `https://tahadobucket.s3.eu-central-1.amazonaws.com/${img.Key}`
+        );
+      });
+
+      // Save the gift-image mapping and the images
+      const actualImages = imageObjects.filter(
+        (obj) =>
+          obj.Key.toLowerCase().endsWith(".jpg") ||
+          obj.Key.toLowerCase().endsWith(".png")
+      );
+      setGiftImageMap(tempGiftImageMap);
+      setImages(actualImages); // Only set actual images, not folder paths
+    }
+  };
+
+  useEffect(() => {
+    console.log("useEffect triggered");
+    getImages();
+  }, [data]); // Dependency on 'data' so it re-runs when data changes
+
   const [loaded, setLoaded] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [sliderRef, instanceRef] = useKeenSlider({
@@ -44,9 +101,9 @@ const ProductsLine = ({ lineID, data, bottomLine }) => {
     },
   });
 
-
   // Find the object with id === 1 and get its occasion
-  const occasionForId1 = ""
+  const occasionForId1 = "";
+  console.log(images);
 
   return (
     <div className=" md:px-32 mt-5 ">
@@ -67,16 +124,20 @@ const ProductsLine = ({ lineID, data, bottomLine }) => {
               </span>
             </div>
             <div ref={sliderRef} className="keen-slider">
-              {data.map((gift) => (
-                <div className="keen-slider__slide py-5 " key={gift.product_id}>
-                  <ProductLy01
-                    giftName={gift.giftname}
-                    mainImage={DefaultImage}
-                    price={gift.price}
-                    link={gift.url}
-                  />
-                </div>
-              ))}
+              {data.map((gift) => {
+                const giftImages = giftImageMap[gift.gift_id] || []; // Retrieve images for this gift
+                const mainImage = giftImages[0] || DefaultImage; // Use the first image or a default
+                return (
+                  <div className="keen-slider__slide py-5 " key={gift.gift_id}>
+                    <ProductLy01
+                      giftName={gift.giftname}
+                      mainImage={mainImage} // Updated to use a mapped image
+                      price={gift.price}
+                      link={gift.url}
+                    />
+                  </div>
+                );
+              })}
             </div>
             <div className=" w-full flex flex-row items-center justify-center">
               <p className=" button ">عرض كل {occasionForId1}</p>
@@ -111,6 +172,7 @@ const ProductsLine = ({ lineID, data, bottomLine }) => {
 
 export default ProductsLine;
 
+// related to slider
 function Arrow(props) {
   const disabeld = props.disabled ? " arrow--disabled" : "";
   return (

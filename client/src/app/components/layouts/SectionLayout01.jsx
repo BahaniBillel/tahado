@@ -17,7 +17,7 @@ function SectionLayout01() {
       </div>
 
       <div className=" col-span-4 overflow-hidden order-1">
-        <Image src={Gift} />
+        <Image src={Gift} alt="#" />
       </div>
     </div>
   );

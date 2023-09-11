@@ -17,7 +17,7 @@ import SimilarCategories from "../../components/SimilarCategories";
 import NewsletterRibbon from "../../components/NewsletterRibbon";
 import ReactStarsComp from "../../components/ReactStars";
 import BottomNavigation from "../../components/BottomNavigation";
-import UsersFinderAPI from "../../apis/UsersFinderAPI";
+
 import axios from "axios";
 
 const images = [Gift, MenGift, Gift, Gift, Gift];
