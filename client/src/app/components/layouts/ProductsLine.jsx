@@ -1,18 +1,17 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useKeenSlider } from "keen-slider/react";
+import { S3Client, ListObjectsCommand } from "@aws-sdk/client-s3";
 import "keen-slider/keen-slider.min.css";
-import DefaultImage from "../../../../public/images/defaultGiftImage.jpg";
-import Image from "next/image";
+
 // Components
 import ProductLy01 from "../productsLayouts/ProdcutLy01";
-
-import { S3Client, ListObjectsCommand } from "@aws-sdk/client-s3";
+import DefaultImage from "../../../../public/images/defaultGiftImage.jpg";
 
 const ProductsLine = ({ lineID, data, bottomLine }) => {
+  // FETCHING IMAGES FROM AMAEZON S3
   const [images, setImages] = useState([]);
   const [giftImageMap, setGiftImageMap] = useState({}); // New state to map gift_ids to their images
-
   const s3Client = new S3Client({
     region: process.env.NEXT_PUBLIC_REGION,
     credentials: {
@@ -27,15 +26,15 @@ const ProductsLine = ({ lineID, data, bottomLine }) => {
       Prefix: "gifts_photos/",
     };
 
-    console.log("Sending ListObjectsCommand with params:", params);
+    // console.log("Sending ListObjectsCommand with params:", params);
 
     const command = new ListObjectsCommand(params);
-    const datax = await s3Client.send(command);
+    const imagesData = await s3Client.send(command);
 
-    console.log("Data from S3: ", datax);
+    // console.log("Data from S3: ", imagesData);
 
-    if (datax && datax.Contents) {
-      const imageObjects = datax.Contents;
+    if (imagesData && imagesData.Contents) {
+      const imageObjects = imagesData.Contents;
 
       let tempGiftImageMap = {};
 
@@ -73,6 +72,7 @@ const ProductsLine = ({ lineID, data, bottomLine }) => {
     getImages();
   }, [data]); // Dependency on 'data' so it re-runs when data changes
 
+  // Images Carousel
   const [loaded, setLoaded] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [sliderRef, instanceRef] = useKeenSlider({

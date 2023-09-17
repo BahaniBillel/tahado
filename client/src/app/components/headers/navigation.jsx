@@ -35,7 +35,7 @@ function Navigation() {
           {/* <p className="text-2xl font-sans font-extrabold tracking-wide">
             TAHADO
           </p> */}
-          <Image src={Logo} height={100}/>
+          <Image src={Logo} height={100} />
         </Link>
       </div>
 

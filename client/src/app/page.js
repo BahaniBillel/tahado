@@ -1,19 +1,11 @@
-import Navigation from "./components/headers/navigation";
 import ProductsLine from "./components/layouts/ProductsLine";
-import ProductLy01 from "./components/productsLayouts/ProdcutLy01";
 import Image from "next/image";
-import data from "../db/giftData";
 import SectionLayout01 from "./components/layouts/SectionLayout01";
 import SectionLayout02 from "./components/layouts/SectionLayout02";
 import axios from "axios";
 
 // Fetching data from database
-async function FetchGifts() {
-  const response = await axios.get("http://localhost:3001/api/v1/products");
-  const gifts = await response.data.data.users;
-  // console.log(gifts);
-  return gifts;
-}
+import FetchGifts from "./api/FetchGifts";
 
 export default async function Home() {
   const gifts = await FetchGifts();
