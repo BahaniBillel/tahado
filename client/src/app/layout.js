@@ -6,9 +6,13 @@ import {
   Noto_Naskh_Arabic,
 } from "next/font/google";
 import "./globals.css";
-import Navigation from "./components/headers/navigation";
-import MiddleHeader from "./components/headers/middleHeader";
+import Navigation from "../components/headers/navigation";
+import MiddleHeader from "../components/headers/middleHeader";
 import { useRouter, usePathname } from "next/navigation";
+import AuthProvider from "./context/AuthProvider";
+
+// redux store
+import StoreProvider from "../../store/StoreProvider";
 
 const ElMessiri = Noto_Naskh_Arabic({
   weight: "400",
@@ -20,21 +24,30 @@ const metadata = {
   description: "A gift ecommerce",
 };
 
-export default function RootLayout({ children }) {
+function RootLayout({ children, session }) {
   const router = useRouter();
   const pathname = usePathname();
 
   const isHomePage = pathname === "/";
+  const isThankyouPage = pathname === "/thankyou";
+  const isRegisterPage = pathname === "/register";
   // console.log(pathname);
   // console.log(isHomePage);
   return (
     <html lang="ar">
-      <body className={`${ElMessiri.className} `}>
-        <Navigation />
-        {!isHomePage ? null : <MiddleHeader />}
+      <AuthProvider>
+        <StoreProvider>
+          <body className={`${ElMessiri.className} `}>
+            {isThankyouPage || isRegisterPage ? null : <Navigation />}
 
-        {children}
-      </body>
+            {!isHomePage ? null : <MiddleHeader />}
+
+            {children}
+          </body>
+        </StoreProvider>
+      </AuthProvider>
     </html>
   );
 }
+
+export default RootLayout;

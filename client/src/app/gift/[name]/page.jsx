@@ -1,19 +1,15 @@
+"use client";
 import React from "react";
 
-import Gift from "../../../../public/images/festive-gift.jpg";
-import MenGift from "../../../../public/images/man-gift.jpg";
-
 // Components
-import SimilarCategories from "../../components/SimilarCategories";
-import NewsletterRibbon from "../../components/NewsletterRibbon";
+import SimilarCategories from "../../../components/SimilarCategories";
+import NewsletterRibbon from "../../../components/NewsletterRibbon";
 
-import BottomNavigation from "../../components/BottomNavigation";
-import DynamicPageSkelton from "../../components/DynamicPageSkelton";
+import BottomNavigation from "../../../components/BottomNavigation";
+import DynamicPageSkelton from "../../../components/DynamicPageSkelton";
 
 // APIs
 import FetchGifts from "../../api/FetchGifts";
-
-const images = [Gift, MenGift, Gift, Gift, Gift];
 
 async function GiftDetail({ params }) {
   const gifts = await FetchGifts();
@@ -30,11 +26,15 @@ async function GiftDetail({ params }) {
     return <div>Product not found </div>;
   }
 
-  // Fetch images from AWS S3 THEN MERGE IT WITH POSTGRESQL DATABASE DYNAMICALLY
+  const addItemToBasket = () => {};
 
   return (
     <div className="w-full flex flex-col md:flex-col  md:px-28 pt-0 md:pt-10 space-y-10 md:space-y-10 pb-24">
-      <DynamicPageSkelton data={matchingProduct} />
+      <DynamicPageSkelton
+        data={matchingProduct}
+        giftId={matchingProduct.gift_id}
+        addItem={addItemToBasket}
+      />
 
       <section className="h-80 py-1 bg-coralPinkLight/50 flex flex-col items-center justify-start px-4 mt-10 ">
         <p className="smalltitle">منتوجات لنفس الحرفي</p>

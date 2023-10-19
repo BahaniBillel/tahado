@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model categories {
+  category_id        Int          @id @default(autoincrement())
+  category_name      String?      @db.VarChar(50)
+  parent_category_id Int?
+  categories         categories?  @relation("categoriesTocategories", fields: [parent_category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction)
+  other_categories   categories[] @relation("categoriesTocategories")
+}
+
+model orderitems {
+  item_id    Int       @id @default(autoincrement())
+  order_id   Int?
+  product_id Int?
+  quantity   Int?
+  subtotal   Decimal?  @db.Decimal(10, 2)
+  orders     orders?   @relation(fields: [order_id], references: [order_id], onDelete: NoAction, onUpdate: NoAction)
+  products   products? @relation(fields: [product_id], references: [gift_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model orders {
+  order_id     Int          @id @default(autoincrement())
+  user_id      Int?
+  order_date   DateTime?    @db.Date
+  total_amount Decimal?     @db.Decimal(10, 2)
+  orderitems   orderitems[]
+  users        users?       @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model paymentmethods {
+  payment_method_id Int       @id @default(autoincrement())
+  user_id           Int?
+  payment_type      String?   @db.VarChar(50)
+  card_number       String?   @db.VarChar(16)
+  expiration_date   DateTime? @db.Date
+  billing_address   String?   @db.VarChar(200)
+  users             users?    @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model productreviews {
+  review_id   Int       @id @default(autoincrement())
+  product_id  Int?
+  user_id     Int?
+  rating      Int?
+  review_text String?
+  review_date DateTime? @db.Date
+  products    products? @relation(fields: [product_id], references: [gift_id], onDelete: NoAction, onUpdate: NoAction)
+  users       users?    @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model products {
+  gift_id        Int              @id @default(autoincrement())
+  giftname       String           @db.VarChar(100)
+  description    String?
+  price          Decimal          @db.Decimal(10, 2)
+  category       String?          @db.VarChar(50)
+  url            String?          @db.VarChar
+  occasion       String?          @db.VarChar
+  orderitems     orderitems[]
+  productreviews productreviews[]
+  wishlistitems  wishlistitems[]
+}
+
+model shippingaddresses {
+  address_id  Int     @id @default(autoincrement())
+  user_id     Int?
+  address     String? @db.VarChar(200)
+  city        String? @db.VarChar(50)
+  state       String? @db.VarChar(50)
+  postal_code String? @db.VarChar(20)
+  country     String? @db.VarChar(50)
+  users       users?  @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model users {
+  user_id           Int                 @id @default(autoincrement())
+  email             String              @unique @db.VarChar(100)
+  password_hash     String              @db.VarChar(100)
+  first_name        String?             @db.VarChar(50)
+  last_name         String?             @db.VarChar(50)
+  address           String?             @db.VarChar(200)
+  phone_number      String?             @db.VarChar(20)
+  orders            orders[]
+  paymentmethods    paymentmethods[]
+  productreviews    productreviews[]
+  shippingaddresses shippingaddresses[]
+  wishlist          wishlist[]
+}
+
+model wishlist {
+  wishlist_id   Int             @id @default(autoincrement())
+  user_id       Int?
+  users         users?          @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  wishlistitems wishlistitems[]
+}
+
+model wishlistitems {
+  wishlist_item_id Int       @id @default(autoincrement())
+  wishlist_id      Int?
+  product_id       Int?
+  products         products? @relation(fields: [product_id], references: [gift_id], onDelete: NoAction, onUpdate: NoAction)
+  wishlist         wishlist? @relation(fields: [wishlist_id], references: [wishlist_id], onDelete: NoAction, onUpdate: NoAction)
+}
