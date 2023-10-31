@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/app/sign-in/page.jsx", "src/components/form/addNewGiftForm.jsx"  ],
   "exclude": [
     "node_modules"
   ]

@@ -1,16 +1,21 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useKeenSlider } from "keen-slider/react";
-import { S3Client, ListObjectsCommand } from "@aws-sdk/client-s3";
+
 import "keen-slider/keen-slider.min.css";
 
 // Components
 import ProductLy01 from "../productsLayouts/ProdcutLy01";
 import DefaultImage from "../../../public/images/defaultGiftImage.jpg";
 
+// Helpers
+import { getImages, s3Client } from "../../helpers/s3Helpers";
+import { useCustomSession } from "../../helpers/customSessionHook";
+import { GetAllWishlist } from "../../app/api/wishlistAPIs";
+
 const ProductsLine = ({
   lineID,
-  data,
+  giftsData,
   bottomLine,
   occasionLabel,
   occasionFilter,
@@ -18,65 +23,12 @@ const ProductsLine = ({
   // FETCHING IMAGES FROM AMAEZON S3
   const [images, setImages] = useState([]);
   const [giftImageMap, setGiftImageMap] = useState({}); // New state to map gift_ids to their images
-  const s3Client = new S3Client({
-    region: process.env.NEXT_PUBLIC_REGION,
-    credentials: {
-      accessKeyId: process.env.NEXT_PUBLIC_ACCESS_KEY_ID,
-      secretAccessKey: process.env.NEXT_PUBLIC_SECRET_ACCESS_KEY,
-    },
-  });
-
-  const getImages = async () => {
-    const params = {
-      Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME,
-      Prefix: "gifts_photos/",
-    };
-
-    // console.log("Sending ListObjectsCommand with params:", params);
-    // http://localhost:3000
-    const command = new ListObjectsCommand(params);
-    const imagesData = await s3Client.send(command);
-
-    // console.log("Data from S3: ", imagesData);
-
-    if (imagesData && imagesData.Contents) {
-      const imageObjects = imagesData.Contents;
-
-      let tempGiftImageMap = {};
-
-      data.forEach((gift) => {
-        const { gift_id } = gift;
-
-        // New logic to map images to gifts by gift_id
-        const giftImages = imageObjects.filter(
-          (img) =>
-            img.Key.startsWith(`gifts_photos/gift_${gift_id}/`) &&
-            !img.Key.endsWith("/") &&
-            (img.Key.toLowerCase().endsWith(".jpg") ||
-              img.Key.toLowerCase().endsWith(".png")) // New condition
-        );
-
-        tempGiftImageMap[gift_id] = giftImages.map(
-          (img) =>
-            `https://tahadobucket.s3.eu-central-1.amazonaws.com/${img.Key}`
-        );
-      });
-
-      // Save the gift-image mapping and the images
-      const actualImages = imageObjects.filter(
-        (obj) =>
-          obj.Key.toLowerCase().endsWith(".jpg") ||
-          obj.Key.toLowerCase().endsWith(".png")
-      );
-      setGiftImageMap(tempGiftImageMap);
-      setImages(actualImages); // Only set actual images, not folder paths
-    }
-  };
+  const { userId } = useCustomSession();
 
   useEffect(() => {
     console.log("useEffect triggered");
-    getImages();
-  }, [data]); // Dependency on 'data' so it re-runs when data changes
+    getImages(giftsData, setImages, setGiftImageMap);
+  }, [giftsData]); // Dependency on 'data' so it re-runs when data changes
 
   // Images Carousel
   const [loaded, setLoaded] = useState(false);
@@ -105,10 +57,31 @@ const ProductsLine = ({
     },
   });
 
-  // Find the object with id === 1 and get its occasion
+  //  Find wishlist matching id
+  const [wishlist, setWishlist] = useState(null); // Initialize to null
 
-  console.log(images);
+  useEffect(() => {
+    // if GetAllWishlist is async
+    const fetchWishlist = async () => {
+      try {
+        const fetchedWishlist = await GetAllWishlist();
+        setWishlist(fetchedWishlist);
+      } catch (error) {
+        console.error("Failed to fetch wishlist:", error);
+      }
+    };
 
+    fetchWishlist();
+  }, []);
+
+  // Later in your component
+  useEffect(() => {
+    if (wishlist) {
+      console.log(wishlist?.data?.wishlist); // Make sure wishlist and wishlist.data are not null
+    }
+  }, [wishlist]);
+
+  console.log(wishlist?.data?.wishlist);
   return (
     <div className=" md:px-32 mt-5 ">
       <div
@@ -128,7 +101,7 @@ const ProductsLine = ({
               </span>
             </div>
             <div ref={sliderRef} className="keen-slider">
-              {data
+              {giftsData
                 .filter((gift) => gift.occasion === occasionFilter)
                 .map((gift) => {
                   const giftImages = giftImageMap[gift.gift_id] || []; // Retrieve images for this gift
@@ -143,8 +116,10 @@ const ProductsLine = ({
                         mainImage={mainImage} // Updated to use a mapped image
                         price={gift.price}
                         link={gift.url}
-                        gift_id={gift.gift_id}
-                        user_id={gift.category}
+                        user_id={userId}
+                        // wishlist_id={gift.}
+                        feature="New"
+                        featureColor="turquoise"
                       />
                     </div>
                   );

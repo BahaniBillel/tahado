@@ -1,18 +1,13 @@
 "use client";
 import React from "react";
 import { persistStore } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import { store } from "../../store/configureStore"; // Replace with the path to your store file
+import { store } from "../../../store/configureStore"; // Replace with the path to your store file
 
 export const resetReduxPersist = async () => {
   await persistStore(store).purge();
+  window.location.reload();
 };
 
-const persistConfig = {
-  key: "root",
-  version: 1,
-  storage,
-};
 function Reset() {
   return (
     <div className="px-10 py-10">

@@ -8,7 +8,8 @@ import { HeartIcon } from "@heroicons/react/24/solid";
 import { useDispatch } from "react-redux";
 
 import { incrementLikes, decrementLikes } from "../../../slices/basketSlice";
-import PostWishlist from "../../app/api/PostWishlist";
+
+import { PostWishlist, RemoveWishlist } from "../../app/api/wishlistAPIs";
 
 function ProductLy01({
   mainImage,
@@ -20,7 +21,7 @@ function ProductLy01({
   fill,
   width,
   length,
-  gift_id,
+  wishlist_id,
   user_id,
 }) {
   const dispatch = useDispatch();
@@ -34,12 +35,27 @@ function ProductLy01({
     featureColor,
     link,
   };
-  const HandleHeartLikes = () => {
+
+  const ToggleLikes = async () => {
     setHeart(!heart);
+
     if (!heart) {
-      dispatch(incrementLikes(product));
+      const likeResponse = await PostWishlist(parseInt(user_id, 10));
+
+      if (likeResponse /* Validate Response */) {
+        setHeart(true);
+        dispatch(incrementLikes(product));
+      }
     } else {
-      dispatch(decrementLikes({ giftName }));
+      const unlikeResponse = await RemoveWishlist(
+        parseInt(wishlist_id, 10),
+        parseInt(user_id, 10)
+      );
+
+      if (unlikeResponse) {
+        setHeart(false);
+        dispatch(decrementLikes({ giftName }));
+      }
     }
   };
 
@@ -58,7 +74,7 @@ function ProductLy01({
             {feature}
           </span>
         ) : null}
-        <Link href={`/gift/${link}`}>
+        <Link href={`/gift/${link}`} alt={giftName}>
           <div className="h-full overflow-hidden">
             <Image
               src={mainImage}
@@ -71,7 +87,7 @@ function ProductLy01({
         </Link>
 
         <div className="absolute right-5 top-5 z-40 ">
-          <button onClick={HandleHeartLikes}>
+          <button onClick={ToggleLikes}>
             {heart ? (
               <HeartIcon className="h-6 text-red " />
             ) : (

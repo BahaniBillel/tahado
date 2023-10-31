@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const CreateUserAPI = async (userData) => {
+export const CreateUserAPI = async (userData) => {
   try {
     const response = await axios.post(
       "http://localhost:3001/api/v1/users/createUser",
@@ -13,4 +13,9 @@ const CreateUserAPI = async (userData) => {
   }
 };
 
-export default CreateUserAPI;
+export async function FetchUsersAPI() {
+  const response = await axios.get("http://localhost:3001/api/v1/users");
+  const users = await response.data.data.users;
+  // console.log(gifts);
+  return users;
+}

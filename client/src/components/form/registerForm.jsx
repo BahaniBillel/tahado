@@ -1,8 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import CreateUserAPI from "../../app/api/createUser";
+import { CreateUserAPI } from "../../app/api/usersAPIs";
 import { useRouter } from "next/navigation";
 import { z, ZodError } from "zod";
+import GoogleSignInButton from "../GoogleSignInButton";
+import Link from "next/link";
 
 // Create Zod schema
 const userSchema = z.object({
@@ -51,14 +53,17 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div
+      className="max-w-fit  min-h-screen h-full w-full  bg-lightGray  flex flex-col items-center justify-center flex-nowrap 
+  p-6 rounded-md"
+    >
       <div className="max-w-md w-full space-y-8">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Sign Up
         </h2>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <input type="hidden" name="remember" value="true" />
-          <div className="rounded-md shadow-sm -space-y-px">
+          <div className="rounded-md shadow-sm  space-y-3">
             {/* Email */}
             <div>
               <label htmlFor="email" className="sr-only">
@@ -70,7 +75,7 @@ const RegisterForm = () => {
                 type="email"
                 required
                 onChange={handleInputChange}
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-5"
                 placeholder="Email"
               />
             </div>
@@ -86,7 +91,7 @@ const RegisterForm = () => {
                 type="password"
                 required
                 onChange={handleInputChange}
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-5"
                 placeholder="Password"
               />
             </div>
@@ -101,7 +106,7 @@ const RegisterForm = () => {
                 name="first_name"
                 type="text"
                 onChange={handleInputChange}
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-5"
                 placeholder="First Name"
               />
             </div>
@@ -116,7 +121,7 @@ const RegisterForm = () => {
                 name="last_name"
                 type="text"
                 onChange={handleInputChange}
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-5"
                 placeholder="Last Name"
               />
             </div>
@@ -135,6 +140,21 @@ const RegisterForm = () => {
             </button>
           </div>
         </form>
+
+        <div
+          className="mx-auto my-4 flex w-full items-center justify-evenly before:mr-4 
+        before:block before:h-px before:flex-grow before:bg-charcoal 
+        after:ml-4 after:block after:h-px after:flex-grow after:bg-charcoal"
+        >
+          or
+        </div>
+        <GoogleSignInButton>Sign up with Google</GoogleSignInButton>
+        <p className="text-center text-sm text-gray-600 mt-2">
+          If you don&apos;t have an account, please&nbsp;
+          <Link className="text-turquoise hover:underline" href="/sign-in">
+            Sign in
+          </Link>
+        </p>
       </div>
     </div>
   );

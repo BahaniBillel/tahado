@@ -11,7 +11,9 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+
 import dbSlice from "../slices/dbSlice";
+// import storage from "./storage";
 
 // Redux Persist configuration
 const persistConfig = {

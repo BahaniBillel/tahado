@@ -4,7 +4,7 @@ const cors = require("cors");
 
 const app = express();
 // app.use(cors());
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
 
 const productRoutes = require("./routes/productRoutes.js");
@@ -14,7 +14,7 @@ const userRoutes = require("./routes/userRoutes.js");
 // users
 app.use("/api/v1/users", userRoutes);
 
-//products
+//products == gifts
 
 app.use("/api/v1/products", productRoutes);
 

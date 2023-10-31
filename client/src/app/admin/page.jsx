@@ -1,65 +1,37 @@
-"use client";
+import { getServerSession } from "next-auth";
 import React from "react";
-import Reset from "../../components/resetStore";
+import { options } from "../api/auth/[...nextauth]/options";
+import Dashboard from "../../components/admin/dashboard";
+import AddNewGiftForm from "../../components/form/addNewGiftForm";
+const Admin = async ({ req }) => {
+  const session = await getServerSession(options);
+  // Get the user's session.
+  const sessionx = await getServerSession(req);
 
-import Link from "next/link";
-import { useState } from "react";
+  // Get the pathname from the request object.
+  // const pathname = new URL(req.url).pathname;
 
-const Admin = () => {
-  const [selectedOption, setSelectedOption] = useState("dashboard");
+  // Do something with the pathname.
+  console.log("this is the requested page ...............", req);
 
-  const renderContent = () => {
-    switch (selectedOption) {
-      case "dashboard":
-        return <div>Dashboard Content</div>;
-      case "add-product":
-        return <div>Add New Product Form</div>;
-      case "orders":
-        return <div>Order List</div>;
-      default:
-        return <div>Select an option from the sidebar</div>;
-    }
-  };
+  console.log(session.user.email);
 
-  return (
-    <div className="flex h-screen bg-gray-50">
-      {/* Sidebar */}
-      <div className="flex flex-col w-64 bg-white border-r">
-        <div className="flex items-center justify-center h-20 text-white bg-indigo-600">
-          Admin Panel
-        </div>
-        <ul>
-          <li
-            className="p-4 hover:bg-gray-100"
-            onClick={() => setSelectedOption("dashboard")}
-          >
-            Dashboard
-          </li>
-          <li
-            className="p-4 hover:bg-gray-100"
-            onClick={() => setSelectedOption("add-product")}
-          >
-            Add New Product
-          </li>
-          <li
-            className="p-4 hover:bg-gray-100"
-            onClick={() => setSelectedOption("orders")}
-          >
-            Orders
-          </li>
-          <li className="p-4 hover:bg-gray-100">
-            <Reset />
-          </li>
-          {/* Add more sidebar items here */}
-        </ul>
+  if (session?.user) {
+    return (
+      <div>
+        <h1 className="text-2xl">
+          {" "}
+          Welcome back , your email is {session?.user.email}
+        </h1>
+        {/* <Dashboard /> */}
+        <AddNewGiftForm />
       </div>
+    );
+  }
 
-      {/* Content Area */}
-      <div className="flex-1 p-10 text-2xl font-semibold">
-        {renderContent()}
-      </div>
-    </div>
-  );
+  if (!session?.user) {
+    return <h1>Please enter your credentials </h1>;
+  }
 };
 
 export default Admin;

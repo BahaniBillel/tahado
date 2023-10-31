@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 
 // Components
@@ -9,7 +8,7 @@ import BottomNavigation from "../../../components/BottomNavigation";
 import DynamicPageSkelton from "../../../components/DynamicPageSkelton";
 
 // APIs
-import FetchGifts from "../../api/FetchGifts";
+import { FetchGifts } from "../../api/giftsAPIs";
 
 async function GiftDetail({ params }) {
   const gifts = await FetchGifts();
@@ -26,7 +25,10 @@ async function GiftDetail({ params }) {
     return <div>Product not found </div>;
   }
 
-  const addItemToBasket = () => {};
+  console.log(gifts);
+  const addItemToBasket = async () => {
+    "use server";
+  };
 
   return (
     <div className="w-full flex flex-col md:flex-col  md:px-28 pt-0 md:pt-10 space-y-10 md:space-y-10 pb-24">

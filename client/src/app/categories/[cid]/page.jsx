@@ -1,5 +1,5 @@
 import React from "react";
-import ProductLy02 from "../../components/productsLayouts/ProdcutLy02";
+import ProductLy02 from "../../../components/productsLayouts/ProdcutLy02";
 
 function CategoryPage() {
   return (
